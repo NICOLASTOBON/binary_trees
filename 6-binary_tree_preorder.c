@@ -7,6 +7,7 @@
  */
 void binary_tree_preorder(const binary_tree_t *tree, void (*func)(int))
 {
+	/* pre-order = RLR: ROOT-LEFT-RIGHT */
 	if (!tree || !func)
 		return;
 	func(tree->n);
