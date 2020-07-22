@@ -8,20 +8,28 @@
 binary_tree_t *binary_trees_ancestor(
 	const binary_tree_t *first, const binary_tree_t *second)
 {
-	int size_1, size_2, comm = 0;
+	binary_tree_t *p_a = (binary_tree_t *)first;
+	binary_tree_t *p_b = (binary_tree_t *)second;
+	size_t size_1, size_2;
+
+	if (!first || !second)
+		return (NULL);
 
 	size_1 = binary_tree_depth(first);
 	size_2 = binary_tree_depth(second);
 
-	comm = (size_1 <= size_2) ? 1 : 2;
+	if (size_1 < size_2)
+		p_b = p_b->parent;
+	else if (size_1 > size_2)
+		p_a = p_a->parent;
 
-	if (comm == 1 && second->parent == first)
-		return (second->parent);
-	else if (comm == 2 && second->parent == first)
-		return (first->parent);
-	else
-		return (first->parent);
-
+	while (p_a && p_b)
+	{
+		if (p_a == p_b)
+			return (p_a);
+		p_a = p_a->parent;
+		p_b = p_b->parent;
+	}
 	return (NULL);
 }
 /**
